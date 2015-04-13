@@ -13,10 +13,8 @@ Binary data location referencing format for exchanging traffic speed data. This 
         "endLat" : 0.125, // lat,lon pair for end vertex, optional, allows matching when node references change
         "endLon" : -100.125,
         "length" : 1023, // length of segment for refernce, also allows comparison as OSM changes
-        "trafficSpeeds" : {
-            "average" : 12.23 // cumulative average for all times
-            "hourOfWeekAverages" : [null,null,12.3 ...] // array of cumulative average by hour of week (Monday Midnight GMT is "hour zero". Nulls represent times with insufficent coverage, fall back to average)
-        }
+        "averageSpeed" : 12.23 // cumulative average for all times
+        "hourOfWeekAverages" : [null,null,12.3 ...] // array of cumulative average by hour of week (Monday Midnight GMT is "hour zero". Nulls represent times with insufficent coverage, fall back to average)
     },
     {
       // segment 2
