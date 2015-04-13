@@ -1,0 +1,22 @@
+message SegmentData {
+	required int64 wayId = 1;
+	required int64 startNodeId = 2;
+	required int64 endNodeId = 3;
+	optional double startLat = 4;
+ 	optional double startLon = 5;
+	optional double endLat = 6;
+	optional double endLon = 7;
+
+	required int32 length = 8;
+
+	required int32 averageSpeed = 9;
+	repeated int32 hourOfWeekAverages = 10;
+}
+
+
+message SegmentList {
+	required int64 osmCommitId = 1;
+	required int64 creationTimestamp = 2;
+
+	repeated SegmentData segments = 3;
+}
