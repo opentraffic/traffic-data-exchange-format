@@ -14,8 +14,8 @@ Binary data location referencing format for exchanging traffic speed data. This 
         "endLon" : "-100.125",
         "length" : "1023", // length of segment for refernce, also allows comparison as OSM changes
         "trafficSpeeds" : {
-            average: 12.23 // cumulative average for all times
-            hourOfWeekAverages : [null,null,12.3 ...] // array of cumulative average by hour of week (Monday Midnight GMT is "hour zero". Nulls represent times with insufficent coverage, fall back to average)
+            "average" : 12.23 // cumulative average for all times
+            "hourOfWeekAverages" : [null,null,12.3 ...] // array of cumulative average by hour of week (Monday Midnight GMT is "hour zero". Nulls represent times with insufficent coverage, fall back to average)
         }
     },
     {
