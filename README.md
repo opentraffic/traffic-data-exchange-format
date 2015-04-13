@@ -19,7 +19,7 @@ Binary data location referencing format for exchanging traffic speed data. This 
         }
     },
     {
-      //segment 2...
-    }
+      // segment 2
+    } ...
 ]
 ```
