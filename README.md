@@ -10,7 +10,7 @@ Binary data location referencing format for exchanging traffic speed data. This 
         "endNodeId" : 778899, // osm node id for end vertex
         "startLat" : 10.123, // lat,lon pair for start vertex, optional, allows matching when node references change
         "startLon" : -100.123,
-        "endLat" : "0.125, // lat,lon pair for end vertex, optional, allows matching when node references change
+        "endLat" : 0.125, // lat,lon pair for end vertex, optional, allows matching when node references change
         "endLon" : -100.125,
         "length" : 1023, // length of segment for refernce, also allows comparison as OSM changes
         "trafficSpeeds" : {
