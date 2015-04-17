@@ -49,12 +49,12 @@ message BaselineStats {
 	// speed at top quartile 
 	optional float topQuartile = 4;
 	// quartile for hour of week bin
-	optional float hourOfWeekTopQuartile = 5;
+	repeated float hourOfWeekTopQuartile = 5;
 
 	// speed at bottom quartile
 	optional float bottomQuartile = 6;
 	// quartile for hour of week bin
-	optional float hourOfWeekBottomQuartile = 7;
+	repeated float hourOfWeekBottomQuartile = 7;
 }
 
 // storage of current condition statistics for segment in a given time window
@@ -78,13 +78,16 @@ message BaselineTile {
 	required Header header = 1;
 
 	// list of segment/stats references
-	repeated BaselineStats segments = 3;
+	repeated BaselineStats segments = 2;
 }
 
 // current conditions tile definition
 message CurrentTile {
 	// reference to tile header 
 	required Header header = 1;
+
+	// threshold of speed change against baseline required before inclusion in this tile (0.0 == all current data included, 0.05 == only segments with change over baseline > 5% are included). 
+	required float percentChangeThreshold = 2;
 
 	// list of segment/stats references
 	repeated CurrentStats segments = 3;
