@@ -1,4 +1,14 @@
-message SegmentData {
+message Header {
+	required int64 osmCommitId = 1;
+	required int64 creationTimestamp = 2;
+
+	required int32 tileX = 3;
+	required int32 tileY = 4;
+	required int32 tileZ = 5;
+}
+
+
+message SegmentDefinition {
 	required int64 wayId = 1;
 	required int64 startNodeId = 2;
 	required int64 endNodeId = 3;
@@ -7,16 +17,41 @@ message SegmentData {
 	optional double endLat = 6;
 	optional double endLon = 7;
 
-	required int32 length = 8;
-
-	required int32 averageSpeed = 9;
-	repeated int32 hourOfWeekAverages = 10;
+	optional int32 length = 8;
 }
 
+message BaselineStats {
+	required SegmentDefinition segment = 1;
 
-message SegmentList {
-	required int64 osmCommitId = 1;
-	required int64 creationTimestamp = 2;
+	required float averageSpeed = 2;
+	repeated float hourOfWeekAverages = 3;
 
-	repeated SegmentData segments = 3;
+	optional float topQuartile = 4;
+	optional float hourOfWeekTopQuartile = 5;
+
+	optional float bottomQuartile = 6;
+	optional float hourOfWeekBottomQuartile = 7;
+}
+
+message CurrentStats {
+	required SegmentDefinition segment = 1;
+
+	required int64 currentWindowStartTimestamp = 2;
+	required int64 currentWindowEndTimestamp = 3;
+
+	required float currentAverageSpeed = 4;
+	optional float currentTopQuartile = 5;
+	optional float currentBottomQuartile = 6;
+}
+
+message BaselineTile {
+	required Header header = 1;
+
+	repeated BaselineStats segments = 3;
+}
+
+message CurrentTile {
+	required Header header = 1;
+
+	repeated CurrentStats segments = 3;
 }
