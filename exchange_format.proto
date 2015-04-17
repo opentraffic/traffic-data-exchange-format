@@ -1,57 +1,91 @@
+
+// tile header
 message Header {
+	
+	// osm commit id from basemap 
 	required int64 osmCommitId = 1;
+
+	// unix timestamp of file creation
 	required int64 creationTimestamp = 2;
 
+	// web mercator tile coordinate for segments contained in this file (startNodeId of all segments falls within tile boundary)
 	required int32 tileX = 3;
 	required int32 tileY = 4;
 	required int32 tileZ = 5;
 }
 
-
+// defintion of osm and geo segment properities
 message SegmentDefinition {
+	
+	// osm way id for segment
 	required int64 wayId = 1;
+
+	// osm node id for start/end nodes in segment 
+	/// either start of way or intersection but need to expand defintion to allow for sub-sections between distance intersections
 	required int64 startNodeId = 2;
 	required int64 endNodeId = 3;
+
+	// optionally include lat/lon of start/end nodes to match against changed osm base map, only required of start/end nodes aren't topologically in the same place
 	optional double startLat = 4;
  	optional double startLon = 5;
 	optional double endLat = 6;
 	optional double endLon = 7;
 
+	// optionally include length of gemetry for downstream postarity since reconstructing length requires a complete way geom. also useful to check if assumptions about distance have material changed
 	optional int32 length = 8;
 }
 
+// storage of baseline statistics for segment
 message BaselineStats {
+	// reference to segment def
 	required SegmentDefinition segment = 1;
 
+	// average speed in m/s for all known times
 	required float averageSpeed = 2;
+	
+	// hour of week binned speed averages -- Monday Midnight GMT is Hour 0
 	repeated float hourOfWeekAverages = 3;
 
+	// speed at top quartile 
 	optional float topQuartile = 4;
+	// quartile for hour of week bin
 	optional float hourOfWeekTopQuartile = 5;
 
+	// speed at bottom quartile
 	optional float bottomQuartile = 6;
+	// quartile for hour of week bin
 	optional float hourOfWeekBottomQuartile = 7;
 }
 
+// storage of current condition statistics for segment in a given time window
 message CurrentStats {
+	// reference to segment def
 	required SegmentDefinition segment = 1;
 
+	// start/end time window for stats
 	required int64 currentWindowStartTimestamp = 2;
 	required int64 currentWindowEndTimestamp = 3;
 
+	// average, top, bottom quartile speeds (m/s) for timewindow
 	required float currentAverageSpeed = 4;
 	optional float currentTopQuartile = 5;
 	optional float currentBottomQuartile = 6;
 }
 
+// baseline tile defintion
 message BaselineTile {
+	// reference to tile header 
 	required Header header = 1;
 
+	// list of segment/stats references
 	repeated BaselineStats segments = 3;
 }
 
+// current conditions tile definition
 message CurrentTile {
+	// reference to tile header 
 	required Header header = 1;
 
+	// list of segment/stats references
 	repeated CurrentStats segments = 3;
 }
