@@ -115,8 +115,8 @@ Current conditions tile
 
             // average, top, bottom quartile speeds (m/s) for timewindow
             "currentAverageSpeed" : 12.23 
-            "currentTopQuartile" : [23.0,20.023...],
-            "currentBottomQuartile" : [8.2, 7.8...];
+            "currentTopQuartile" : 23.0,
+            "currentBottomQuartile" : 8.2
         },
         {
           // segment 2
