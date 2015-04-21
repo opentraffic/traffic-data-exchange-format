@@ -1,4 +1,4 @@
-# Traffic Data Exchange Format Spec
+# Traffic Data Exchange Format
 
 Binary data location referencing format for exchanging traffic speed data. This repo contains documentation of data format and a reference ProtoBuff implementation. 
 
