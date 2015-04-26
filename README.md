@@ -1,6 +1,6 @@
 # Traffic Data Exchange Format
 
-Binary data location referencing format for exchanging traffic speed data. This repo contains documentation of data format and a reference ProtoBuff implementation. 
+Binary location referencing format for exchanging traffic speed data. This repo contains documentation of data format and a reference ProtoBuff implementation. 
 
 Data is stored as web mercator tiles. Segments with start node inside tile are included. 
 
