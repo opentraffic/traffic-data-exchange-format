@@ -1,8 +1,31 @@
+// vehicle location message
+
+message VehicleLocation {
+
+	required int64 timestamp = 1;
+	required double lat = 2;
+	required double lon = 3;
+
+	optional int32 heading = 4;
+	optional float speed = 5;
+
+}
+
+message VehicleMessage {
+
+	// unique but anonymous vehicle ID
+	required int64 vehicleId = 1;
+
+	// optional ID for data source (registered with opentraffic.io)
+	optional int64 sourceId = 2;
+
+	repeated VehicleLocation locations = 3;
+}
 
 // tile header
 message Header {
-	
-	// osm commit id from basemap 
+
+	// osm commit id from basemap
 	required int64 osmCommitId = 1;
 
 	// unix timestamp of file creation
@@ -16,11 +39,11 @@ message Header {
 
 // defintion of osm and geo segment properities
 message SegmentDefinition {
-	
+
 	// osm way id for segment
 	required int64 wayId = 1;
 
-	// osm node id for start/end nodes in segment 
+	// osm node id for start/end nodes in segment
 	/// either start of way or intersection but need to expand defintion to allow for sub-sections between distance intersections
 	required int64 startNodeId = 2;
 	required int64 endNodeId = 3;
@@ -35,6 +58,24 @@ message SegmentDefinition {
 	optional int32 length = 8;
 }
 
+// a nodes representing a sub-trace o/d pair, for valdiation purposes
+message ODValidationPairs {
+
+	// timestamp of sample rounded to nearest hour
+	required int64 currentWindowStartTimestamp = 1;
+
+	// o/d nodes for trace
+	required int64 startNodeId = 2;
+	required int64 endNodeId = 3;
+
+  // lenght of sub-trace trip in meters
+	required int32 length = 4;
+
+	// travel time in seconds
+	required int32 travelTime = 5;
+}
+
+
 // storage of baseline statistics for segment
 message BaselineStats {
 	// reference to segment def
@@ -42,11 +83,11 @@ message BaselineStats {
 
 	// average speed in m/s for all known times
 	required float averageSpeed = 2;
-	
+
 	// hour of week binned speed averages -- Monday Midnight GMT is Hour 0
 	repeated float hourOfWeekAverages = 3;
 
-	// speed at top quartile 
+	// speed at top quartile
 	optional float topQuartile = 4;
 	// quartile for hour of week bin
 	repeated float hourOfWeekTopQuartile = 5;
@@ -74,7 +115,7 @@ message CurrentStats {
 
 // baseline tile defintion
 message BaselineTile {
-	// reference to tile header 
+	// reference to tile header
 	required Header header = 1;
 
 	// list of segment/stats references
@@ -83,12 +124,14 @@ message BaselineTile {
 
 // current conditions tile definition
 message CurrentTile {
-	// reference to tile header 
+	// reference to tile header
 	required Header header = 1;
 
-	// threshold of speed change against baseline required before inclusion in this tile (0.0 == all current data included, 0.05 == only segments with change over baseline > 5% are included). 
+	// threshold of speed change against baseline required before inclusion in this tile (0.0 == all current data included, 0.05 == only segments with change over baseline > 5% are included).
 	required float percentChangeThreshold = 2;
 
 	// list of segment/stats references
 	repeated CurrentStats segments = 3;
+
+	repeated ODValidationPairs validationParis = 4;
 }
